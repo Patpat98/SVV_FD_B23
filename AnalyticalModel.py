@@ -10,8 +10,8 @@ from Cit_par import *
 import numpy as np
 
 #---------------------   Short Period Motion   --------------------------------
-A1 = -2*muc*KY2
-B1 = Cmq + Cmadot
+A1 = -2*muc*KY2*c/V0
+B1 = Cmq*c/V0 + Cmadot
 C1 = Cma
 
 coeffSP = [A1, B1, C1]
@@ -22,9 +22,9 @@ zeta_SPM = -B1/(2*sqrt(A1*C1))
 
 
 #---------------------   Phugoid Motion   -------------------------------------
-A2 = 2*muc*(CZa*Cmq - 2*muc*Cma)
-B2 = 2*muc*(CXu*Cma - Cmu*CXa) + Cmq*(CZu*CXa-CXu*CZa)
-C2 = CZ0*(Cmu*CZa-CZu*Cma)
+A2 = 2*muc*(CZa*Cmq - 2*muc*Cma)*c/(V0**2)
+B2 = 2*muc*(CXu*Cma - Cmu*CXa)*c/(V0**2) + Cmq*(CZu*CXa-CXu*CZa)*c/(V0**2)
+C2 = CZ0*(Cmu*CZa-CZu*Cma)*c/V0
 
 coeffPM = [A2, B2, C2]
 rootsPM = np.roots(coeffPM)
@@ -36,8 +36,8 @@ zeta_PM = -B2/(2*sqrt(A2*C2))
 eigenRollM = (Clp)/(4*mub*KX2)
 
 #---------------------   Dutch Roll   -----------------------------------------
-A4 = -2*mub*KZ2
-B4 = 1/2 *Cnr
+A4 = -2*mub*KZ2*b/(2*V0)
+B4 = 1/2 *Cnr*b/(2*V0)
 C4 = -Cnb
 
 coeffDR = [A4, B4, C4]
@@ -47,7 +47,8 @@ omega0_DR = V0/B4 * sqrt(C4/A4)
 zeta_DR = -B4/(2*sqrt(A4*C4))
 
 #--------------------   Spiral Motion   ---------------------------------------
-eigenSpiralM = (2*CL *(Clb*Cnr - Cnb*Clr))/(Clb*(CYb*Cnr + 4*mub*Cnb)-Cnp*(CYb*Clr + 4*mub*Clb))
+eigenSpiralM = (2*CL *(Clb*Cnr - Cnb*Clr))/(Clb*(CYb*Cnr + 4*mub*Cnb)*b/(2*V0) \
+                -Cnp*(CYb*Clr + 4*mub*Clb)*b/(2*V0))
 
 
 
