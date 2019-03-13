@@ -3,6 +3,10 @@
 from math import *
 # xcg = 0.25 * c
 
+
+############################# FROM FLIGHT DATA ##############################
+
+
 # Stationary flight condition
 
 hp0    = 2000     # pressure altitude in the stationary flight condition [m]
@@ -13,7 +17,7 @@ th0    = 0.01         # pitch angle in the stationary flight condition [rad]
 # Aircraft mass
 m      = 10000      # mass [kg]
 
-# aerodynamic properties
+# aerodynamic properties 
 e      = 0.8            # Oswald factor [ ]
 CD0    = 0.04            # Zero lift drag coefficient [ ]
 CLa    = 5.084            # Slope of CL-alpha curve [ ]
@@ -21,6 +25,11 @@ CLa    = 5.084            # Slope of CL-alpha curve [ ]
 # Longitudinal stability
 Cma    = -0.5626    # longitudinal stabilty [ ]
 Cmde   = -1.1642      # elevator effectiveness [ ]
+
+
+
+
+################################## NOT FROM FLIGHT DATA ######################
 
 # Aircraft geometry
 
