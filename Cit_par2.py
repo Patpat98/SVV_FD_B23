@@ -1,35 +1,32 @@
-#<<<<<<< Updated upstream
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 13 09:56:58 2019
+
+@author: ahmadmahmoud
+"""
 # Citation 550 - Linear simulation
-from math import *
+
 # xcg = 0.25 * c
-
-
-############################# FROM FLIGHT DATA ##############################
-
 
 # Stationary flight condition
 
-hp0    = 2000     # pressure altitude in the stationary flight condition [m]
-V0     = 400         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0.03         # angle of attack in the stationary flight condition [rad]
-th0    = 0.01         # pitch angle in the stationary flight condition [rad]
+hp0    =       	      # pressure altitude in the stationary flight condition [m]
+V0     =             # true airspeed in the stationary flight condition [m/sec]
+alpha0 =             # angle of attack in the stationary flight condition [rad]
+th0    =             # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = 10000      # mass [kg]
+m      =             # mass [kg]
 
-# aerodynamic properties 
-e      = 0.8            # Oswald factor [ ]
-CD0    = 0.04            # Zero lift drag coefficient [ ]
-CLa    = 5.084            # Slope of CL-alpha curve [ ]
+# aerodynamic properties
+e      =             # Oswald factor [ ]
+CD0    =             # Zero lift drag coefficient [ ]
+CLa    =             # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    = -0.5626    # longitudinal stabilty [ ]
-Cmde   = -1.1642      # elevator effectiveness [ ]
-
-
-
-
-################################## NOT FROM FLIGHT DATA ######################
+Cma    =             # longitudinal stabilty [ ]
+Cmde   =             # elevator effectiveness [ ]
 
 # Aircraft geometry
 
@@ -55,7 +52,7 @@ R      = 287.05          # specific gas constant [m^2/sec^2K]
 g      = 9.81            # [m/sec^2] (gravity constant)
 
 # air density [kg/m^3]  
-rho    = rho0 *pow(((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1))) 
+rho    = rho0 * power( ((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1)))   
 W      = m * g            # [N]       (aircraft weight)
 
 # Constant values concerning aircraft inertia
@@ -118,5 +115,4 @@ Cnp    =  -0.0602
 Cnr    =  -0.2061
 Cnda   =  -0.0120
 Cndr   =  -0.0939
-#=======
-
+#>>>>>>> Stashed changes
