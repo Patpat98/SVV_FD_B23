@@ -32,7 +32,8 @@ C2=Matrix([[CYb,CL,CYp*(b/(2*V0)),(CYr-4*mub)*(b/(2*V0))],[0,0,(b/2*V0),0], [Clb
 C3=Matrix([[CYda,CYdr],[0,0],[Clda,Cldr],[Cnda,Cndr]])
 
 statespace=getStateSpaceGeneral(C1,C2,C3)
-print(statespace)
+print('A =', statespace[0])
+print('B =', statespace[1])
 
 
 
