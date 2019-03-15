@@ -51,7 +51,12 @@ sys=StateSpace(A,B,C,D)
 eigs=(np.linalg.eig(A))
 print("Eigenvalues are", eigs)
 
-#Get other comparative values
+#From these get other comparable parameters
+half_amp= (np.log(0.5)*c)/(np.real(eigs[0][1])*V0)
+damping=(-np.real(eigs[0][1]))/(np.sqrt(np.real(eigs[0][1])**2+np.real(eigs[0][1])**2))
+t_damp_halfamp=(-np.log(0.5))/np.real(eigs[0][1])
+
+
 
 
 #This is the time vector
