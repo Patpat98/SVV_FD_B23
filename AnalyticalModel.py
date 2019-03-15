@@ -10,8 +10,8 @@ from Cit_par import *
 import numpy as np
 
 #---------------------   Short Period Motion   --------------------------------
-A1 = -2*muc*KY2*c/V0
-B1 = Cmq*c/V0 + Cmadot
+A1 = -2*muc*KY2#*c/V0
+B1 = Cmadot + Cmq#*c/V0 
 C1 = Cma
 
 coeffSP = [A1, B1, C1]
@@ -25,9 +25,10 @@ T_halfSPM = (0.693)/(rootsSP[0].real)
 
 
 #---------------------   Phugoid Motion   -------------------------------------
-A2 = 2*muc*(CZa*Cmq - 2*muc*Cma)*c/(V0**2)
-B2 = 2*muc*(CXu*Cma - Cmu*CXa)*c/(V0**2) + Cmq*(CZu*CXa-CXu*CZa)*c/(V0**2)
-C2 = CZ0*(Cmu*CZa-CZu*Cma)*c/V0
+A2 = 2*muc*(CZa*Cmq - 2*muc*Cma)#*c/(V0**2)
+B2 = 2*muc*(CXu*Cma - Cmu*CXa) + Cmq*(CZu*CXa-CXu*CZa)
+#B2 = 2*muc*(CXu*Cma - Cmu*CXa)*c/(V0**2) + Cmq*(CZu*CXa-CXu*CZa)*c/(V0**2)
+C2 = CZ0*(Cmu*CZa-CZu*Cma)#*c/V0
 
 coeffPM = [A2, B2, C2]
 rootsPM = np.roots(coeffPM)
@@ -39,13 +40,12 @@ omega0_newPM = (rootsPM[0].imag)/(sqrt(1-rootsPM[0].real))
 T_halfPM = -(0.693)/(rootsPM[0].real)
 
 #---------------------   Aperiodic Roll Motion   ------------------------------
-eigenRollM = (Clp)/(4*mub*KX2)
-T_halfRM = (log(1/2))/(eigenRollM)
-tauRM = -(1)/(eigenRollM)
+eigenRollM = (Clp)/(4*mub*KX2)# *(b/V0))
+
 
 #---------------------   Dutch Roll   -----------------------------------------
-A4 = -2*mub*KZ2*b/(2*V0)
-B4 = 1/2 *Cnr*b/(2*V0)
+A4 = -2*mub*KZ2#*b/(2*V0)
+B4 = 1/2 *Cnr#*b/(2*V0)
 C4 = -Cnb
 
 coeffDR = [A4, B4, C4]
@@ -58,11 +58,10 @@ omega0_newDR = (rootsDR[0].imag)/(sqrt(1-rootsDR[0].real))
 T_halfDR = -(0.693)/(rootsDR[0].real)
 
 #--------------------   Spiral Motion   ---------------------------------------
-eigenSpiralM = (2*CL *(Clb*Cnr - Cnb*Clr))/(Clb*(CYb*Cnr + 4*mub*Cnb)*b/(2*V0) \
-                -Cnp*(CYb*Clr + 4*mub*Clb)*b/(2*V0))
+eigenSpiralM = (2*CL *(Clb*Cnr - Cnb*Clr))/(Clp*(CYb*Cnr + 4*mub*Cnb)-Cnp*(CYb*Clr + 4*mub*Clb))
 
-T_halfSM = -(log(1/2))/(eigenSpiralM)
-tauSM = -(1)/(eigenSpiralM)
+e#igenSpiralM = (2*CL *(Clb*Cnr - Cnb*Clr))/(Clb*(CYb*Cnr + 4*mub*Cnb)*b/(2*V0) \
+                #   -Cnp*(CYb*Clr + 4*mub*Clb)*b/(2*V0))
 
 
 
@@ -83,8 +82,6 @@ print("T_half =", T_halfPM)
 print()
 print("---------------------   Aperiodic Roll Motion:   ----------------------")
 print("Eigenvalue:", eigenRollM)
-print("T_half =", T_halfRM)
-print("tau =", tauRM)
 print()
 print("---------------------   Dutch Roll Motion:   --------------------------")
 print("Eigenvalues:", rootsDR[0], rootsDR[1])
@@ -94,6 +91,5 @@ print("T_half =", T_halfDR)
 print()
 print("---------------------   Spiral Motion:   -----------------------------")
 print("Eigenvalue:", eigenSpiralM)
-print("T_half =", T_halfSM, "(that's actually T_2)")
-print("tau =", tauSM)
+
 #print("omega_0 =", omega0_SP, "Damping ratio =", zeta_SPM)
