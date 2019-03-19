@@ -69,34 +69,42 @@ T=np.arange(0,100,0.1)
 #Here select the input index: 0=aileron, 1=rudder
 input_index=0
 
-T,y=impulse_response(sys,T,X0=0.0,input=input_index)
+#T,y=impulse_response(sys,T,X0=0.0,input=input_index)
+
+#Plotting the responses to non zero initial conditions
+X0=[[1],[1],[1],[1]]
+T,y=initial_response(sys, T, X0)
+
+#Here try and compare with pilot input
+
+
 
 
 #####PLOTTING#####
-fig=plt.figure()
-plt.subplot(211)
-plt.plot(T,y[0])
-plt.xlabel('Time[s]')
-plt.ylabel('Beta[rad]')
-plt.grid()
-
-plt.subplot(212)
-plt.plot(T,y[1])
-plt.xlabel('Time[s]')
-plt.ylabel('Phi[rad]')
-plt.grid()
-
-fig=plt.figure()
-plt.subplot(211)
-plt.plot(T,y[2])
-plt.xlabel('Time[s]')
-plt.ylabel('p [rad/s]')
-plt.grid()
-
-plt.subplot(212)
-plt.plot(T,y[3])
-plt.xlabel('Time[s]')
-plt.ylabel('r [rad/s]')
-plt.grid()
-
-plt.show()
+#fig=plt.figure()
+#plt.subplot(211)
+#plt.plot(T,y[0])
+#plt.xlabel('Time[s]')
+#plt.ylabel('Beta[rad]')
+#plt.grid()
+#
+#plt.subplot(212)
+#plt.plot(T,y[1])
+#plt.xlabel('Time[s]')
+#plt.ylabel('Phi[rad]')
+#plt.grid()
+#
+#fig=plt.figure()
+#plt.subplot(211)
+#plt.plot(T,y[2])
+#plt.xlabel('Time[s]')
+#plt.ylabel('p [rad/s]')
+#plt.grid()
+#
+#plt.subplot(212)
+#plt.plot(T,y[3])
+#plt.xlabel('Time[s]')
+#plt.ylabel('r [rad/s]')
+#plt.grid()
+#
+#plt.show()
