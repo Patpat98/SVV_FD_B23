@@ -6,7 +6,7 @@ Created on Mon Mar  4 13:44:45 2019
 """
 #Import and packages
 from math import *
-from Cit_par import *
+from Cit_par_SP import *
 import numpy as np
 
 #---------------------   Short Period Motion   --------------------------------
