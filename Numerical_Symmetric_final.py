@@ -4,6 +4,7 @@ Created on Fri Mar 15 16:43:57 2019
 
 @author: patri
 """
+import numpy as np
 
 def getStateSpaceGeneral(C1,C2,C3,m,s,r):
     
@@ -65,6 +66,11 @@ T=np.arange(0,500,0.1)
 input_index=0
 
 T,y=impulse_response(sys,T,X0=0.0,input=input_index)
+
+#Plotting the responses to non zero initial conditions
+
+
+#T,y=initial_response(sys, T, X0)
 
 
 #####PLOTTING#####
