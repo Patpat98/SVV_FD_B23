@@ -8,6 +8,9 @@ Created on Tue Mar 19 15:02:47 2019
 
 from eigenmotions import times, order, index
 from matdata import parameters, dictionary
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.optimize import curve_fit
 
 
 mass_original = 6704.218
@@ -21,6 +24,26 @@ for i in range(len(lh_engine_FU)):
     mass0 = mass_original - (lh_engine_FU[i]*0.453592) - (rh_engine_FU[i]*0.453592)
     mass.append(mass0)
     
-print(mass)
+time = []
+for i in range(len(mass)):
+    time.append(i)
 
-#Find mass at each point
+
+def fit_func(x, a, b):
+    return a*x + b
+
+params = curve_fit(fit_func, time, mass)
+
+[a, b] = params[0]
+
+line = []
+for i in range(len(mass)):
+    line.append(a*time[i] + b)
+
+
+print()
+
+plt.plot(time, mass)
+#plt.plot(time, line)
+plt.xlabel("Time (0.1 sec)")
+plt.ylabel("Mass (kg)") 
