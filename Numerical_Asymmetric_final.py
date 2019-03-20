@@ -8,9 +8,12 @@ Created on Fri Mar 15 16:42:49 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from control import *
+import control.matlab
 from Cit_par import *
+import scipy as sp
+from column_fe_plot import *
 
-
+Force_control_wheel=np.array(Force_control_wheel)
 
 def getStateSpaceGeneral(C1,C2,C3,m,s,r):
     
@@ -60,7 +63,9 @@ t_damp_halfamp=(-np.log(0.5))/np.real(eigs[0][1])
 
 
 #This is the time vector
-T=np.arange(0,100,0.1)
+T=np.arange(0,4695.1,0.1)
+
+elevator_input = np.column_stack((np.zeros(46951),Force_control_wheel))
 
 
 ####SUBJECT SYSTEM TO IMPULSE RESPONSES####
@@ -72,8 +77,12 @@ input_index=0
 #T,y=impulse_response(sys,T,X0=0.0,input=input_index)
 
 #Plotting the responses to non zero initial conditions
-X0=[[1],[1],[1],[1]]
-T,y=initial_response(sys, T, X0)
+#X0=[[1],[1],[1],[1]]
+
+y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
+
+#Plotting the response from flight data elevator force
+
 
 #Here try and compare with pilot input
 
@@ -81,30 +90,30 @@ T,y=initial_response(sys, T, X0)
 
 
 #####PLOTTING#####
-#fig=plt.figure()
-#plt.subplot(211)
-#plt.plot(T,y[0])
-#plt.xlabel('Time[s]')
-#plt.ylabel('Beta[rad]')
-#plt.grid()
-#
-#plt.subplot(212)
-#plt.plot(T,y[1])
-#plt.xlabel('Time[s]')
-#plt.ylabel('Phi[rad]')
-#plt.grid()
-#
-#fig=plt.figure()
-#plt.subplot(211)
-#plt.plot(T,y[2])
-#plt.xlabel('Time[s]')
-#plt.ylabel('p [rad/s]')
-#plt.grid()
-#
-#plt.subplot(212)
-#plt.plot(T,y[3])
-#plt.xlabel('Time[s]')
-#plt.ylabel('r [rad/s]')
-#plt.grid()
-#
-#plt.show()
+fig=plt.figure()
+plt.subplot(211)
+plt.plot(T,xout[:,0])
+plt.xlabel('Time[s]')
+plt.ylabel('Beta[rad]')
+plt.grid()
+
+plt.subplot(212)
+plt.plot(T,xout[:,1])
+plt.xlabel('Time[s]')
+plt.ylabel('Phi[rad]')
+plt.grid()
+
+fig=plt.figure()
+plt.subplot(211)
+plt.plot(T,xout[:,2])
+plt.xlabel('Time[s]')
+plt.ylabel('p [rad/s]')
+plt.grid()
+
+plt.subplot(212)
+plt.plot(T,xout[:,3])
+plt.xlabel('Time[s]')
+plt.ylabel('r [rad/s]')
+plt.grid()
+
+plt.show()
