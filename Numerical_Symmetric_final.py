@@ -5,6 +5,15 @@ Created on Fri Mar 15 16:43:57 2019
 @author: patri
 """
 import numpy as np
+import matplotlib.pyplot as plt
+from control import *
+import control.matlab
+from Cit_par import *
+import scipy as sp
+from column_fe_plot import *
+
+Force_control_wheel=np.array(Force_control_wheel)
+
 
 def getStateSpaceGeneral(C1,C2,C3,m,s,r):
     
@@ -56,47 +65,48 @@ t_damp_halfamp_2=(np.log(0.5))/np.real(eigs[0][2])
 
 
 #This is the time vector
-T=np.arange(0,500,0.1)
+T=np.arange(0,4695.1,0.1)
 
+elevator_input = Force_control_wheel
 
 ####SUBJECT SYSTEM TO IMPULSE RESPONSES####
-#The impulse input to the aileron and rudder should be separated for meaningful results for each motion
+##The impulse input to the aileron and rudder should be separated for meaningful results for each motion
 
-#Here select the input index: 0=aileron, 1=rudder
+##Here select the input index: 0=aileron, 1=rudder
 input_index=0
+#T,y=impulse_response(sys,T,X0=0.0,input=input_index)
 
-T,y=impulse_response(sys,T,X0=0.0,input=input_index)
+##Plotting the responses to non zero initial conditions
+#X0=[[1],[1],[1],[1]]
 
-#Plotting the responses to non zero initial conditions
-
-
-#T,y=initial_response(sys, T, X0)
+##Response to pilot elevator input throughout the flight
+y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
 
 
 #####PLOTTING#####
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,y[0])
+plt.plot(T,y[:,0])
 plt.xlabel('Time[s]')
 plt.ylabel('V[m/s]')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,y[1])
+plt.plot(T,y[:,1])
 plt.xlabel('Time[s]')
 plt.ylabel('alpha[rad]')
 plt.grid()
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,y[2])
+plt.plot(T,y[:,2])
 plt.xlabel('Time[s]')
 plt.ylabel('theta[rad]')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,y[3])
+plt.plot(T,y[:,3])
 plt.xlabel('Time[s]')
 plt.ylabel('q[rad/s]')
 plt.grid()
