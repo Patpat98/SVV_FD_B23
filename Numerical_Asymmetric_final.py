@@ -63,7 +63,8 @@ damping=(-np.real(eigs[0][1]))/(np.sqrt(np.real(eigs[0][1])**2+np.real(eigs[0][1
 t_damp_halfamp=(-np.log(0.5))/np.real(eigs[0][1])
 
 #This is the time vector
-T=np.arange(0,500,1)
+steps=length_of_time*10
+T=np.arange(0,steps,1)
 
 ####SUBJECT SYSTEM TO IMPULSE RESPONSES####
 
@@ -72,19 +73,18 @@ input_index=0
 
 #T,y=impulse_response(sys,T,X0=0.0,input=input_index)
 
-#Plotting the responses to non zero initial conditions
-X0=[[1],[50],[3.4],[4]
-
+#Plotting the responses to non zero initial conditi5ons
+X0=[[1],[50],[3.4],[4]]
 
 aileron_input=yaxis1
-elevator_input=yaxis2
+rudder_input=yaxis3
 
-aileron_input_vector=np.column_stack((np.zeros(500),yaxis1))
-elevator_input_vector = np.column_stack((np.zeros(500),yaxis2))
+aileron_input_vector=np.column_stack((np.zeros(steps),yaxis1))
+rudder_input_vector = np.column_stack((np.zeros(steps),yaxis3))
 
-combined_input=np.column_stack((yaxis1,yaxis2))
+combined_input=np.column_stack((-aileron_input,-rudder_input))
 
-y,T,xout=control.matlab.lsim(sys,combined_input,T,X0)
+y,T,xout=control.matlab.lsim(sys,combined_input,T,X0=0)
 
 ##The updated state space values are derivatives. You have to multiply by time step and integrate
 dt=0.1
@@ -110,20 +110,26 @@ for i in range(len(y[:,0])):
     Phi_tab.append(Phi)
     r_tab.append(r)
     p_tab.append(p)
-    
+
+state_1=np.array(state_1)
+state_2=np.array(state_2)
+state_3=np.array(state_3)
+state_1=state_1-state_1[0]
+state_2=state_2-state_2[0]
+state_3=state_3-state_3[0]
 
 
 
 #####PLOTTING#####
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,-y[:,0]*(np.pi/180))
+plt.plot(T,y[:,0]*(np.pi/180))
 plt.xlabel('Time[s]')
 plt.ylabel('Beta[rad] (sideslip angle)')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,-y[:,1])
+plt.plot(T,y[:,1])
 plt.plot(time1, state_1)
 plt.xlabel('Time[s]')
 plt.ylabel('Phi[rad] (roll angle)')
@@ -131,14 +137,14 @@ plt.grid()
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,-y[:,2]*(2*V0/b))
+plt.plot(T,y[:,2]*(2*V0/b))
 plt.plot(time1, state_2)
 plt.xlabel('Time[s]')
 plt.ylabel('p [rad/s] (roll rate)')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,-y[:,3]*(2*V0/b))
+plt.plot(T,y[:,3]*(2*V0/b))
 plt.plot(time1, state_3)
 plt.xlabel('Time[s]')
 plt.ylabel('r [rad/s] (yaw rate)')

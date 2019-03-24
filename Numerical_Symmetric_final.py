@@ -41,7 +41,7 @@ def getStateSpaceGeneral(C1,C2,C3,m,s,r):
 ###MAIN###
 
 C1=np.matrix([[-2*muc,0,0,0],[0,(CZadot-2*muc), 0, 0],[0,0,-1,0],[0,Cmadot,0,-2*muc*KY2]])
-C2=np.matrix([[CXu,CXa, CZ0, 0],[CZu,CZa, -CX0, (CZq+2*muc)],[0,0,0,1],[Cmu, Cma, 0, Cmq]])
+C2=np.matrix([[CXu,CXa, CZ0,0],[CZu,CZa, -CX0, (CZq+2*muc)],[0,0,0,1],[Cmu, Cma, 0, Cmq]])
 C3=np.matrix([[CXde],[CZde],[0],[Cmde]])
 
 
@@ -82,9 +82,22 @@ input_index=0
 
 #####RESPONSES TO PILOT INPUTS FOR VARIOUS MOTIONS THROUGHOUT THE FLIGHT####
 
+state_1=np.array(state_1)
+state_2=np.array(state_2)
+state_3=np.array(state_3)
+state_4=np.array(state_4)
+state_1=state_1-state_1[0]
+state_2=state_2-state_2[0]
+state_3=state_3-state_3[0]
+state_4=state_4-state_4[0]
+
 aileron_input=yaxis1
+
 elevator_input=yaxis2
-T=np.arange(0,600,1)
+steps=length_of_time*10
+
+T=np.arange(0,steps,1)
+
 
 y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
 
@@ -93,14 +106,14 @@ y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,xout[:,0]*(V0/c))
+plt.plot(T,xout[:,0]*V0)
 plt.plot(time1, state_1)
 plt.xlabel('Time[s]')
 plt.ylabel('V[m/s]')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,xout[:,1]*(V0/c))
+plt.plot(T,xout[:,1]*180/np.pi)
 plt.plot(time1, state_2)
 plt.xlabel('Time[s]')
 plt.ylabel('alpha[rad]')
@@ -108,14 +121,14 @@ plt.grid()
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,xout[:,2]*(V0/c))
+plt.plot(T,xout[:,2]*180/np.pi)
 plt.plot(time1, state_3)
 plt.xlabel('Time[s]')
 plt.ylabel('theta[rad] (pitch)')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,(xout[:,3]/(c/(V0))*180/np.pi))
+plt.plot(T,(xout[:,3]/(c/(V0)))*180/np.pi)
 plt.plot(time1, state_4)
 plt.xlabel('Time[s]')
 plt.ylabel('q[rad/s] (pitch rate)')

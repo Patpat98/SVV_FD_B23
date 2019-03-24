@@ -11,6 +11,7 @@ import os
 import matplotlib.pyplot as plt 
 from matdata import parameters, dictionary
 from eigenmotions import times, order, index
+import numpy as np
 #from Plot_flightdata import xaxis, yaxis, zaxis
 
 
@@ -20,12 +21,13 @@ from eigenmotions import times, order, index
 
 ###Here specify if either symmetric or assymmetric case
 
-symmetric=False
+symmetric=True
 
-eigenmotion = "AperiodicRoll"
-length_of_time = 50 #in seconds
+eigenmotion = "Phugoid"
+length_of_time = 100 #in seconds
 interest1 = "delta_a"
 interest2 = "delta_e"
+interest3 ="delta_r"
 
 #--------------------------IMPORT THE GPS COORDINATES--------------------------
 # Open the file
@@ -80,26 +82,43 @@ Alt_0=dictionary['Dadc1_bcAlt'][index[n]:(index[n]+length_of_time*10)][0]
 # Parameters
 yaxis1 = dictionary[interest1][index[n]:(index[n]+length_of_time*10)]
 yaxis2 = dictionary[interest2][index[n]:(index[n]+length_of_time*10)]
+yaxis3 = dictionary[interest3][index[n]:(index[n]+length_of_time*10)]
+
+before = (dictionary[interest2][(index[n]-100):index[n]+900])
+average= sum(before)/len(before)
+print("this is ",average)
+
+
+
+
 
 time1 = []
 for i in range(length_of_time*10):
     time1.append(i)
+    
 
+yaxis1=np.array(yaxis1)
+yaxis2=np.array(yaxis2)
+yaxis3=np.array(yaxis3)
 
-####PLOTTING###
-#
-###Here the pilot inputs are plotted:
-#fig=plt.figure()
-##Plot1
-#plt.subplot(211)
-#plt.plot(time1, yaxis1)
-#plt.ylabel(interest1) 
-##Plot2
-#plt.subplot(212)
-#plt.plot(time1, yaxis2)
-#plt.xlabel("Time (0.1 sec)") 
-#plt.ylabel(interest2) 
-#
+yaxis1=yaxis1-yaxis1[0]
+yaxis2=yaxis2-average
+yaxis3=yaxis3-average
+
+###PLOTTING###
+
+##Here the pilot inputs are plotted:
+fig=plt.figure()
+#Plot1
+plt.subplot(211)
+plt.plot(time1, yaxis1)
+plt.ylabel(interest1) 
+#Plot2
+plt.subplot(212)
+plt.plot(time1, yaxis2)
+plt.xlabel("Time (0.1 sec)") 
+plt.ylabel(interest2) 
+
 ###Here we plot the state outputs over the specified time
 #fig=plt.figure()
 ##Plot3

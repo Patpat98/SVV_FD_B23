@@ -70,7 +70,7 @@ damping=(-np.real(eigs[0][1]))/(np.sqrt(np.real(eigs[0][1])**2+np.real(eigs[0][1
 t_damp_halfamp=(-np.log(0.5))/np.real(eigs[0][1])
 
 #This is the time vector
-T=np.arange(0,1200,1)
+T=np.arange(0,2000,1)
 
 ####SUBJECT SYSTEM TO IMPULSE RESPONSES####
 
@@ -86,8 +86,8 @@ input_index=0
 aileron_input=yaxis1
 elevator_input=yaxis2
 
-aileron_input_vector=np.column_stack((np.zeros(1200),yaxis1))
-elevator_input_vector = np.column_stack((np.zeros(1200),yaxis2))
+aileron_input_vector=np.column_stack((np.zeros(2000),yaxis1))
+elevator_input_vector = np.column_stack((np.zeros(2000),yaxis2))
 
 combined_input=np.column_stack((yaxis1,yaxis2))
 
