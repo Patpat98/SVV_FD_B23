@@ -13,7 +13,7 @@ from eigenmotions import times, order, index
 
 
 # Open the file with the mat file parameters
-script_dir = os.path.dirname("/home/edmundo/Desktop/SVV/Documents/") #<-- absolute dir the script is in
+script_dir = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/") #<-- absolute dir the script is in
 rel_path = "mat_file_parameters.txt"
 abs_file_path = os.path.join(script_dir, rel_path)
 
@@ -47,7 +47,7 @@ for i in range(len(parameters)):
 #Append to the value of each key an array containing all the values of the measurement
 #Obtained from the corresponding file.
 for z in range(len(parameters)):
-    directory = os.path.dirname("/home/edmundo/Desktop/SVV/FLIGHT/Mat/")
+    directory = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Mat/")
     file = parameters[z] + ".txt"
     path = os.path.join(directory, file)
     array = []

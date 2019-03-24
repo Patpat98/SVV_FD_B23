@@ -1,6 +1,10 @@
 #<<<<<<< Updated upstream
 # Citation 550 - Linear simulation
 from math import *
+import sys
+sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
+from graph1 import *
+
 # xcg = 0.25 * c
 
 
@@ -9,24 +13,26 @@ from math import *
 
 # Stationary flight condition
 
-hp0    = 2000     # pressure altitude in the stationary flight condition [m]
-V0     = 400         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0.03         # angle of attack in the stationary flight condition [rad]
-th0    = 0.01         # pitch angle in the stationary flight condition [rad]
+hp0    = (Alt_0)    # pressure altitude in the stationary flight condition [m]
+V0     = (V_0)      # true airspeed in the stationary flight condition [m/sec]
+alpha0 = (alpha_0)         # angle of attack in the stationary flight condition [rad]
+th0    = (pitch_0)        # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = 10000      # mass [kg]
+m      = 6179   # mass [kg]
 
 # aerodynamic properties 
-e      = 0.8            # Oswald factor [ ]
-CD0    = 0.04            # Zero lift drag coefficient [ ]
-CLa    = 5.084            # Slope of CL-alpha curve [ ]
+e      = 0.85            # Oswald factor [ ]
+CD0    = 0.042            # Zero lift drag coefficient [ ]
+CLa    = 5.084 
+#CLa    = 11.1235          # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
 Cma    = -0.5626    # longitudinal stabilty [ ]
 Cmde   = -1.1642      # elevator effectiveness [ ]
 
-
+#Cma    = -0.02257    # longitudinal stabilty [ ]
+#Cmde   = -0.04559      # elevator effectiveness [ ]
 
 
 ################################## NOT FROM FLIGHT DATA ######################

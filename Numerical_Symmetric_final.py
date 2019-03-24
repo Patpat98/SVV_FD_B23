@@ -11,8 +11,11 @@ import control.matlab
 from Cit_par import *
 import scipy as sp
 from column_fe_plot import *
-
-Force_control_wheel=np.array(Force_control_wheel)
+#from Plot_flightdata import *
+import sys
+sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
+from graph1 import *
+from matdata import *
 
 
 def getStateSpaceGeneral(C1,C2,C3,m,s,r):
@@ -65,9 +68,7 @@ t_damp_halfamp_2=(np.log(0.5))/np.real(eigs[0][2])
 
 
 #This is the time vector
-T=np.arange(0,4695.1,0.1)
 
-elevator_input = Force_control_wheel
 
 ####SUBJECT SYSTEM TO IMPULSE RESPONSES####
 ##The impulse input to the aileron and rudder should be separated for meaningful results for each motion
@@ -79,7 +80,12 @@ input_index=0
 ##Plotting the responses to non zero initial conditions
 #X0=[[1],[1],[1],[1]]
 
-##Response to pilot elevator input throughout the flight
+#####RESPONSES TO PILOT INPUTS FOR VARIOUS MOTIONS THROUGHOUT THE FLIGHT####
+
+aileron_input=yaxis1
+elevator_input=yaxis2
+T=np.arange(0,600,1)
+
 y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
 
 
@@ -87,28 +93,32 @@ y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,y[:,0])
+plt.plot(T,xout[:,0]*(V0/c))
+plt.plot(time1, state_1)
 plt.xlabel('Time[s]')
 plt.ylabel('V[m/s]')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,y[:,1])
+plt.plot(T,xout[:,1]*(V0/c))
+plt.plot(time1, state_2)
 plt.xlabel('Time[s]')
 plt.ylabel('alpha[rad]')
 plt.grid()
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,y[:,2])
+plt.plot(T,xout[:,2]*(V0/c))
+plt.plot(time1, state_3)
 plt.xlabel('Time[s]')
-plt.ylabel('theta[rad]')
+plt.ylabel('theta[rad] (pitch)')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,y[:,3])
+plt.plot(T,(xout[:,3]/(c/(V0))*180/np.pi))
+plt.plot(time1, state_4)
 plt.xlabel('Time[s]')
-plt.ylabel('q[rad/s]')
+plt.ylabel('q[rad/s] (pitch rate)')
 plt.grid()
 
 plt.show()

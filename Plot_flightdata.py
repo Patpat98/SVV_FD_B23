@@ -8,15 +8,15 @@ Created on Mon Mar  4 19:17:58 2019
 import os
 import matplotlib.pyplot as plt 
 # =============================================================================
-# from mpl_toolkits.mplot3d import Axes3D 
-# from eigenmotions import times, order
+from mpl_toolkits.mplot3d import Axes3D 
+#from eigenmotions import times, order
 # =============================================================================
 
 #To see the plot in a new window:
 # Using Spyder menu options Tools -> Preferences -> Graphics Tab -> and changed the setting to Automatic (from default Inline).
 
 # Open the file
-script_dir = os.path.dirname("/home/edmundo/Desktop/SVV/FLIGHT/") #<-- absolute dir the script is in
+script_dir = os.path.dirname("") #<-- absolute dir the script is in
 rel_path = "gps.txt"
 abs_file_path = os.path.join(script_dir, rel_path)
 
@@ -44,12 +44,12 @@ for i in range(len(time)):
 
 
 
-fig = plt.figure(1)
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(xaxis, yaxis, zaxis, c=time, cmap='gnuplot')
-plt.axis(autoscale_on = True)
-plt.colorbar()
-plt.show
+#fig = plt.figure(1)
+#ax = fig.add_subplot(111, projection='3d')
+#ax.scatter(xaxis, yaxis, zaxis, c=time, cmap='gnuplot')
+#plt.axis(autoscale_on = True)
+#plt.colorbar()
+#plt.show
 
 
 #Coment above and Uncoment below to show ground track and altitude vs time
