@@ -9,8 +9,8 @@ Created on Wed Mar 20 10:20:15 2019
 #------------------- GRAPH MAKER ----------------------------------------------
 import os
 import matplotlib.pyplot as plt 
-from matdata import parameters, dictionary
-from eigenmotions import times, order, index
+from REF_matdata import parameters, dictionary
+from REF_eigenmotions import times, order, index
 import numpy as np
 #from Plot_flightdata import xaxis, yaxis, zaxis
 
@@ -31,23 +31,25 @@ interest3 ="delta_r"
 
 #--------------------------IMPORT THE GPS COORDINATES--------------------------
 # Open the file
-script_dir = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/") #<-- absolute dir the script is in
-rel_path = "gps.txt"
-abs_file_path = os.path.join(script_dir, rel_path)
-
-time = []
-xaxis = []
-yaxis = []
-zaxis = []
-with open(abs_file_path, 'r') as fp:
-    for x in fp:
-        if (x[:6] == "<when>"):
-            time.append(x[17:25])
-        if (x[:10] == "<gx:coord>"):
-            xdir, ydir, zdir = x.split()
-            xaxis.append(float(x[10:28]))
-            yaxis.append(float(ydir))
-            zaxis.append(int(zdir.replace('</gx:coord>', '')))
+# =============================================================================
+# script_dir = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/") #<-- absolute dir the script is in
+# rel_path = "gps.txt"
+# abs_file_path = os.path.join(script_dir, rel_path)
+# 
+# time = []
+# xaxis = []
+# yaxis = []
+# zaxis = []
+# with open(abs_file_path, 'r') as fp:
+#     for x in fp:
+#         if (x[:6] == "<when>"):
+#             time.append(x[17:25])
+#         if (x[:10] == "<gx:coord>"):
+#             xdir, ydir, zdir = x.split()
+#             xaxis.append(float(x[10:28]))
+#             yaxis.append(float(ydir))
+#             zaxis.append(int(zdir.replace('</gx:coord>', '')))
+# =============================================================================
 
 #-----------------------PROGRAM-------------------------------------------
 n = order.index(eigenmotion)

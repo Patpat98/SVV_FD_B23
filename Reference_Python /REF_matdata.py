@@ -9,12 +9,12 @@ Created on Fri Mar 15 16:30:38 2019
 import os
 import pickle
 import matplotlib.pyplot as plt 
-from eigenmotions import times, order, index
+from REF_eigenmotions import times, order, index
 
 
 # Open the file with the mat file parameters
-script_dir = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/") #<-- absolute dir the script is in
-rel_path = "mat_file_parameters.txt"
+script_dir = os.path.dirname("/home/edmundo/Desktop/SVV/SVV_FD_B23/Reference Data/") #<-- absolute dir the script is in
+rel_path = "REF_mat_file_parameters.txt"
 abs_file_path = os.path.join(script_dir, rel_path)
 
 
@@ -29,7 +29,7 @@ with open(abs_file_path, 'r') as fp:
 del parameters[-1]
 del parameters[-1]
 
-#print(parameters)
+print(parameters)
 
 
 
@@ -47,7 +47,7 @@ for i in range(len(parameters)):
 #Append to the value of each key an array containing all the values of the measurement
 #Obtained from the corresponding file.
 for z in range(len(parameters)):
-    directory = os.path.dirname("/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Mat/")
+    directory = os.path.dirname("/home/edmundo/Desktop/SVV/SVV_FD_B23/Reference Data/")
     file = parameters[z] + ".txt"
     path = os.path.join(directory, file)
     array = []
@@ -66,8 +66,10 @@ def load_obj(name ):
     
 # Find the mass at each point__________________________________________________
     
-mass_original = 6704.218
-
+payload_mass = 695
+OEW = 9165*0.453592
+fuel_mass = 4050*0.453592
+mass_original = payload_mass + OEW + fuel_mass
 lh_engine_FU = dictionary["lh_engine_FU"]
 rh_engine_FU = dictionary["rh_engine_FU"]
 
