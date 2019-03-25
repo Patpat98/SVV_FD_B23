@@ -2,7 +2,7 @@
 # Citation 550 - Linear simulation
 from math import *
 import sys
-sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
+#sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
 from REF_graph1 import *
 from REF_eigenmotions import *
 from REF_matdata import *
@@ -21,17 +21,17 @@ alpha0 = (alpha_0)*(np.pi/180)      # angle of attack in the stationary flight c
 th0    = (pitch_0)*(np.pi/180)     # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = mass[index[order.index("DutchRoll")]]   # mass [kg]
+m      = mass[index[order.index("AperiodicRoll")]]   # mass [kg]
 
 # aerodynamic properties 
-e      = 0.72486      # Oswald factor [ ]
-CD0    = 0.0202         # Zero lift drag coefficient [ ]
-CLa    = 3.792980604
+e      = 0.856653     # Oswald factor [ ]
+CD0    = 0.0303         # Zero lift drag coefficient [ ]
+CLa    = 4.41178
 #CLa    = 11.1235          # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    = -0.5626    # longitudinal stabilty [ ]
-Cmde   = -1.1642      # elevator effectiveness [ ]
+Cma    = -0.56    # longitudinal stabilty [ ]
+Cmde   = -1.1645      # elevator effectiveness [ ]
 
 #Cma    = -0.02257    # longitudinal stabilty [ ]
 #Cmde   = -0.04559      # elevator effectiveness [ ]

@@ -23,7 +23,7 @@ import numpy as np
 
 symmetric=False
 
-eigenmotion = "DutchRoll"
+eigenmotion = "AperiodicRoll"
 length_of_time = 80 #in seconds
 interest1 = "delta_a"
 interest2 = "delta_e"
