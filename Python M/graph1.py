@@ -19,12 +19,12 @@ import numpy as np
 #Write eigenmotion of interest. 'AperiodicRoll', 'ShortPeriod', 'Phugoid', 'DutchRoll', 'DutchRollYD', 'Spiral'
 #Write parameters to be compared and length of time in seconds. Eg: Ahrs1_Roll, written as in the file mat_file_parameters.txt
 
-###Here specify if either symmetric or assymmetric case
+##Here specify if either symmetric or assymmetric case
 
-symmetric=True
+symmetric=False
 
-eigenmotion = "Phugoid"
-length_of_time = 100 #in seconds
+eigenmotion = "DutchRoll"
+length_of_time = 80 #in seconds
 interest1 = "delta_a"
 interest2 = "delta_e"
 interest3 ="delta_r"
@@ -73,22 +73,24 @@ else:
     alpha_0=dictionary["vane_AOA"][index[n]:(index[n]+length_of_time*10)][0]
     pitch_0=dictionary["Ahrs1_Pitch"][index[n]:(index[n]+length_of_time*10)][0]
 
+#This is the starting Altitude of each maneuver
 Alt_0=dictionary['Dadc1_bcAlt'][index[n]:(index[n]+length_of_time*10)][0] 
 
 
-#print(len(x_axis))
-
-
-# Parameters
+##This converts pilot inputs to list
 yaxis1 = dictionary[interest1][index[n]:(index[n]+length_of_time*10)]
 yaxis2 = dictionary[interest2][index[n]:(index[n]+length_of_time*10)]
 yaxis3 = dictionary[interest3][index[n]:(index[n]+length_of_time*10)]
 
-before = (dictionary[interest2][(index[n]-100):index[n]+900])
-average= sum(before)/len(before)
-print("this is ",average)
+##To remove offset, this subtracts the average of the input before the eigenmotion over a TBD time period
+before2 = (dictionary[interest2][(index[n]-100):index[n]])
+average2= sum(before2)/len(before2)
 
+before1 = (dictionary[interest1][(index[n]-100):index[n]])
+average1= sum(before1)/len(before1)
 
+before3 = (dictionary[interest3][(index[n]-400):index[n]])
+average3= sum(before3)/len(before3)
 
 
 
@@ -96,28 +98,33 @@ time1 = []
 for i in range(length_of_time*10):
     time1.append(i)
     
-
 yaxis1=np.array(yaxis1)
 yaxis2=np.array(yaxis2)
 yaxis3=np.array(yaxis3)
 
-yaxis1=yaxis1-yaxis1[0]
-yaxis2=yaxis2-average
-yaxis3=yaxis3-average
+yaxis1=yaxis1-average1
+yaxis2=yaxis2-average2
+yaxis3=yaxis3-average3
 
 ###PLOTTING###
 
-##Here the pilot inputs are plotted:
+##Pilot Inputs
 fig=plt.figure()
-#Plot1
-plt.subplot(211)
+
+plt.subplot(311)
 plt.plot(time1, yaxis1)
+plt.xlabel("Time (0.1 sec)") 
 plt.ylabel(interest1) 
-#Plot2
-plt.subplot(212)
+
+plt.subplot(312)
 plt.plot(time1, yaxis2)
 plt.xlabel("Time (0.1 sec)") 
 plt.ylabel(interest2) 
+
+plt.subplot(313)
+plt.plot(time1, yaxis3)
+plt.xlabel("Time (0.1 sec)") 
+plt.ylabel(interest3) 
 
 ###Here we plot the state outputs over the specified time
 #fig=plt.figure()

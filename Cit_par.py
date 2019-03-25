@@ -21,11 +21,11 @@ alpha0 = (alpha_0)*(np.pi/180)      # angle of attack in the stationary flight c
 th0    = (pitch_0)*(np.pi/180)     # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = mass[index[order.index("Spiral")]]   # mass [kg]
-#m = 6200
+m      = mass[index[order.index("DutchRoll")]]   # mass [kg]
+
 # aerodynamic properties 
-e      = 0.85            # Oswald factor [ ]
-CD0    = 0.042            # Zero lift drag coefficient [ ]
+e      = 0.9          # Oswald factor [ ]
+CD0    = 0.04         # Zero lift drag coefficient [ ]
 CLa    = 3.5753
 #CLa    = 11.1235          # Slope of CL-alpha curve [ ]
 
@@ -69,7 +69,7 @@ W      = m * g            # [N]       (aircraft weight)
 # Constant values concerning aircraft inertia
 
 muc    = m / (rho * S * c)
-mub    = m / (rho * S * b)
+mub    = (m / (rho * S * b))
 KX2    = 0.019
 KZ2    = 0.042
 KXZ    = 0.002

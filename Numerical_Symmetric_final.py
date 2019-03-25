@@ -65,23 +65,20 @@ damping_2=(-np.real(eigs[0][1]))/(np.sqrt(np.real(eigs[0][1])**2+np.real(eigs[0]
 t_damp_halfamp_1=(np.log(0.5))/np.real(eigs[0][0])
 t_damp_halfamp_2=(np.log(0.5))/np.real(eigs[0][2])
 
+#This is the time vector (note we its in decaseconds)
+steps=length_of_time*10
+T=np.arange(0,steps,1)
 
-
-#This is the time vector
-
-
-####SUBJECT SYSTEM TO IMPULSE RESPONSES####
-##The impulse input to the aileron and rudder should be separated for meaningful results for each motion
-
+###Subject system to impulse responses for checks
 ##Here select the input index: 0=aileron, 1=rudder
 input_index=0
+
 #T,y=impulse_response(sys,T,X0=0.0,input=input_index)
 
-##Plotting the responses to non zero initial conditions
-#X0=[[1],[1],[1],[1]]
+##Here add non - zero initial conditions
+#X0=[[1],[50],[3.4],[4]]
 
-#####RESPONSES TO PILOT INPUTS FOR VARIOUS MOTIONS THROUGHOUT THE FLIGHT####
-
+#Here remove the offset for flight data 
 state_1=np.array(state_1)
 state_2=np.array(state_2)
 state_3=np.array(state_3)
@@ -91,47 +88,47 @@ state_2=state_2-state_2[0]
 state_3=state_3-state_3[0]
 state_4=state_4-state_4[0]
 
-aileron_input=yaxis1
-
+##Pilot Elevator input (from graph1)
 elevator_input=yaxis2
-steps=length_of_time*10
 
+#This is the time vector(ds)
+steps=length_of_time*10
 T=np.arange(0,steps,1)
 
-
-y,T,xout=control.matlab.lsim(sys,elevator_input,T,X0=0.)
+#Simulate to pilot input
+y,T,xout=control.matlab.lsim(sys,-elevator_input,T,X0=0.)
 
 
 #####PLOTTING#####
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,xout[:,0]*V0)
+plt.plot(T,y[:,0]*V0)
 plt.plot(time1, state_1)
-plt.xlabel('Time[s]')
+plt.xlabel('Time[ss]')
 plt.ylabel('V[m/s]')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,xout[:,1]*180/np.pi)
+plt.plot(T,y[:,1]*180/np.pi)
 plt.plot(time1, state_2)
-plt.xlabel('Time[s]')
-plt.ylabel('alpha[rad]')
+plt.xlabel('Time[ds]')
+plt.ylabel('alpha[deg]')
 plt.grid()
 
 fig=plt.figure()
 plt.subplot(211)
-plt.plot(T,xout[:,2]*180/np.pi)
+plt.plot(T,y[:,2]*180/np.pi)
 plt.plot(time1, state_3)
 plt.xlabel('Time[s]')
-plt.ylabel('theta[rad] (pitch)')
+plt.ylabel('theta[deg] (pitch)')
 plt.grid()
 
 plt.subplot(212)
-plt.plot(T,(xout[:,3]/(c/(V0)))*180/np.pi)
+plt.plot(T,(y[:,3]/(c/(V0)))*180/np.pi)
 plt.plot(time1, state_4)
 plt.xlabel('Time[s]')
-plt.ylabel('q[rad/s] (pitch rate)')
+plt.ylabel('q[deg/s] (pitch rate)')
 plt.grid()
 
 plt.show()
