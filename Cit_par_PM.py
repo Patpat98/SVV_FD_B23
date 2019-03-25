@@ -20,22 +20,39 @@ results=[3084.7676404533045, 98.60501569639443, 5.25776145409259, 8.990187909654
 
 hp0    = results[0]     # pressure altitude in the stationary flight condition [m]
 V0     = results[1]         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = results[2]         # angle of attack in the stationary flight condition [rad]
-th0    = results[3]         # pitch angle in the stationary flight condition [rad]
+alpha0 = results[2] * pi/180         # angle of attack in the stationary flight condition [rad]
+th0    = results[3] * pi/180          # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
 m      = results[4]      # mass [kg]
 
 # aerodynamic properties 
-e      = 0.8            # Oswald factor [ ]
-CD0    = 0.015362015            # Zero lift drag coefficient [ ]
-CLa    = 0.0899            # Slope of CL-alpha curve [ ]
+e      = 0.85        # Oswald factor [ ]
+CD0    = 0.0276         # Zero lift drag coefficient [ ]
+CLa    = 4.99046            # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    = -0.022569999    # longitudinal stabilty [ ]
-Cmde   = -0.045591659      # elevator effectiveness [ ]
+Cma    = -0.5626  # longitudinal stabilty [ ]
+Cmde   = -2.24     # elevator effectiveness [ ]
 
-
+# =============================================================================
+# hp0    = 2000     # pressure altitude in the stationary flight condition [m]
+# V0     = 400         # true airspeed in the stationary flight condition [m/sec]
+# alpha0 = 0.03         # angle of attack in the stationary flight condition [rad]
+# th0    = 0.01         # pitch angle in the stationary flight condition [rad]
+# 
+# # Aircraft mass
+# m      = 10000      # mass [kg]
+# 
+# # aerodynamic properties 
+# e      = 0.8        # Oswald factor [ ]
+# CD0    = 0.04         # Zero lift drag coefficient [ ]
+# CLa    = 5.084            # Slope of CL-alpha curve [ ]
+# 
+# # Longitudinal stability
+# Cma    = -0.5626  # longitudinal stabilty [ ]
+# Cmde   = -1.1642    # elevator effectiveness [ ]
+# =============================================================================
 
 
 ################################## NOT FROM FLIGHT DATA ######################
