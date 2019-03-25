@@ -42,39 +42,56 @@ def getStateSpaceGeneral(C1,C2,C3,m,s,r):
 #C2=np.matrix([[CYb,CL,CYp*(b/(2*V0)),(CYr-4*mub)*(b/(2*V0))],[0,0,(b/2*V0),0], [Clb,0,Clp*(b/2*V0), Clr*(b/2*V0)],[Cnb,0,Cnp*(b/(2*V0)),Cnr*(b/(2*V0))]])
 #C3=np.matrix([[CYda,CYdr],[0,0],[Clda,Cldr],[Cnda,Cndr]])
 
-C1=np.matrix([[(CYb-2*mub)*(b/V0),0, 0, 0],[0,-0.5*(b/V0),0,0],[0,0,-4*mub*KX2*(b/(V0)),4*mub*KXZ*(b/(V0))],[Cnb*(b/V0),0,4*mub*KXZ*(b/(V0)),-4*mub*KZ2*(b/(V0))]])
+#C1=np.matrix([[(CYb-2*mub)*(b/V0),0, 0, 0],[0,-0.5*(b/V0),0,0],[0,0,-4*mub*KX2*(b/(V0)),4*mub*KXZ*(b/(V0))],[Cnb*(b/V0),0,4*mub*KXZ*(b/(V0)),-4*mub*KZ2*(b/(V0))]])
+#C2=np.matrix([[CYb,CL,CYp,(CYr-4*mub)],[0,0,1,0], [Clb,0,Clp, Clr],[Cnb,0,Cnp,Cnr]])
+#C3=np.matrix([[CYda,CYdr],[0,0],[Clda,Cldr],[Cnda,Cndr]])
+#C3=np.matrix([[0,0],[0,0],[0,0],[0,0]])
+
+C1=np.matrix([[(CYbdot-2*mub),0, 0, 0],[0,-0.5,0,0],[0,0,-4*mub*KX2,4*mub*KXZ],[Cnbdot,0,4*mub*KXZ,-4*mub*KZ2]])
 C2=np.matrix([[CYb,CL,CYp,(CYr-4*mub)],[0,0,1,0], [Clb,0,Clp, Clr],[Cnb,0,Cnp,Cnr]])
 C3=np.matrix([[CYda,CYdr],[0,0],[Clda,Cldr],[Cnda,Cndr]])
 
 
-statespace=getStateSpaceGeneral(C1,C2,C3,4,4,2)
-
-
-######SUBJECT MODEL TO STEP INPUTS AND PLOT######
+######INITIATE STATE SPACE######
 A=getStateSpaceGeneral(C1,C2,C3,4,4,2)[0]
 B=getStateSpaceGeneral(C1,C2,C3,4,4,2)[1]
 C=getStateSpaceGeneral(C1,C2,C3,4,4,2)[2]
 D=getStateSpaceGeneral(C1,C2,C3,4,4,2)[3]
 
-#Initiate system statespace
 sys=StateSpace(A,B,C,D)
 
 #Determine the eigenvalues of matrix A
 eigs=(np.linalg.eig(A))
 
 #This is the time vector
-T=np.arange(0,10,0.1)
+T=np.arange(0,100,0.1)
 
-#Inputs vector u for rudder and aileron deflection
 
-U=[0.1,0.2]
+####SUBJECT SYSTEM TO impulse RESPONSES####
+#The impulse input to the aileron and rudder should be separated for meaningful results for each motion
 
-#Subjected to a step response
-T,y=step_response(sys,T,X0=0.0)
+#Here select the input index: 0=aileron, 1=rudder
+input_index=0
 
-#Plot the step reponse
+T,y=impulse_response(sys,T,X0=0.0,input=input_index)
+
+
+#####PLOTTING#####
+fig=plt.figure()
+plt.subplot(211)
 plt.plot(T,y[0])
+
+plt.subplot(212)
+plt.plot(T,y[1])
+
+plt.subplot(213)
+plt.plot(T,y[2])
+
+plt.subplot(214)
+plt.plot(T,y[3])
+
 plt.show()
+
 
 
 

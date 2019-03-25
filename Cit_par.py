@@ -1,6 +1,12 @@
 #<<<<<<< Updated upstream
 # Citation 550 - Linear simulation
 from math import *
+import sys
+sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
+from graph1 import *
+from eigenmotions import *
+from matdata import *
+import numpy as np
 # xcg = 0.25 * c
 
 
@@ -9,24 +15,26 @@ from math import *
 
 # Stationary flight condition
 
-hp0    = 2000     # pressure altitude in the stationary flight condition [m]
-V0     = 400         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0.03         # angle of attack in the stationary flight condition [rad]
-th0    = 0.01         # pitch angle in the stationary flight condition [rad]
+hp0    = (Alt_0)    # pressure altitude in the stationary flight condition [m]
+V0     = (V_0)      # true airspeed in the stationary flight condition [m/sec]
+alpha0 = (alpha_0)*(np.pi/180)      # angle of attack in the stationary flight condition [rad]
+th0    = (pitch_0)*(np.pi/180)     # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = 10000      # mass [kg]
+m      = mass[index[order.index("DutchRoll")]]   # mass [kg]
 
 # aerodynamic properties 
-e      = 0.8            # Oswald factor [ ]
-CD0    = 0.04            # Zero lift drag coefficient [ ]
-CLa    = 5.084            # Slope of CL-alpha curve [ ]
+e      = 0.9          # Oswald factor [ ]
+CD0    = 0.04         # Zero lift drag coefficient [ ]
+CLa    = 3.5753
+#CLa    = 11.1235          # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
 Cma    = -0.5626    # longitudinal stabilty [ ]
 Cmde   = -1.1642      # elevator effectiveness [ ]
 
-
+#Cma    = -0.02257    # longitudinal stabilty [ ]
+#Cmde   = -0.04559      # elevator effectiveness [ ]
 
 
 ################################## NOT FROM FLIGHT DATA ######################
@@ -44,7 +52,7 @@ bh     = 5.791	          # stabilser span [m]
 A      = b ** 2 / S      # wing aspect ratio [ ]
 Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
 Vh_V   = 1	          # [ ]
-ih     = -2 * pi / 180   # stabiliser angle of incidence [rad]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
 
 # Constant values concerning atmosphere and gravity
 
@@ -61,7 +69,7 @@ W      = m * g            # [N]       (aircraft weight)
 # Constant values concerning aircraft inertia
 
 muc    = m / (rho * S * c)
-mub    = m / (rho * S * b)
+mub    = (m / (rho * S * b))
 KX2    = 0.019
 KZ2    = 0.042
 KXZ    = 0.002
@@ -71,13 +79,13 @@ KY2    = 1.25 * 1.114
 
 Cmac   = 0                      # Moment coefficient about the aerodynamic centre [ ]
 CNwa   = CLa                    # Wing normal force slope [ ]
-CNha   = 2 * pi * Ah / (Ah + 2) # Stabiliser normal force slope [ ]
+CNha   = 2 * np.pi * Ah / (Ah + 2) # Stabiliser normal force slope [ ]
 depsda = 4 / (A + 2)            # Downwash gradient [ ]
 
 # Lift and drag coefficient
 
 CL = 2 * W / (rho * V0 ** 2 * S)              # Lift coefficient [ ]
-CD = CD0 + (CLa * alpha0) ** 2 / (pi * A * e) # Drag coefficient [ ]
+CD = CD0 + (CLa * alpha0) ** 2 / (np.pi * A * e) # Drag coefficient [ ]
 
 # Stabiblity derivatives
 
