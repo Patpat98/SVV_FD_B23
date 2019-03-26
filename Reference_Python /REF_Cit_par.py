@@ -17,16 +17,16 @@ import numpy as np
 
 hp0    = (Alt_0)    # pressure altitude in the stationary flight condition [m]
 V0     = (V_0)      # true airspeed in the stationary flight condition [m/sec]
-alpha0 = (alpha_0)*(np.pi/180)      # angle of attack in the stationary flight condition [rad]
-th0    = (pitch_0)*(np.pi/180)     # pitch angle in the stationary flight condition [rad]
+alpha0 = (alpha_0)      # angle of attack in the stationary flight condition [rad]
+th0    = (pitch_0)     # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      = mass[index[order.index("AperiodicRoll")]]   # mass [kg]
+m      = mass[index[order.index("Spiral")]]   # mass [kg]
 
 # aerodynamic properties 
-e      = 0.856653     # Oswald factor [ ]
-CD0    = 0.0303         # Zero lift drag coefficient [ ]
-CLa    = 4.41178
+e      = 0.623265     # Oswald factor [ ]
+CD0    = 0.0174         # Zero lift drag coefficient [ ]
+CLa    = 3.78152
 #CLa    = 11.1235          # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability

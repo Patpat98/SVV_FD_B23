@@ -17,8 +17,8 @@ import numpy as np
 
 hp0    = (Alt_0)    # pressure altitude in the stationary flight condition [m]
 V0     = (V_0)      # true airspeed in the stationary flight condition [m/sec]
-alpha0 = (alpha_0)*(np.pi/180)      # angle of attack in the stationary flight condition [rad]
-th0    = (pitch_0)*(np.pi/180)     # pitch angle in the stationary flight condition [rad]
+alpha0 = (alpha_0)     # angle of attack in the stationary flight condition [rad]
+th0    = (pitch_0)    # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
 m      = mass[index[order.index("DutchRoll")]]   # mass [kg]

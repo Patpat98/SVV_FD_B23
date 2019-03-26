@@ -13,7 +13,7 @@ import scipy as sp
 from column_fe_plot import *
 #from Plot_flightdata import *
 import sys
-sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
+#sys.path.insert(0,'/Users/patri/documents/Year 3/Simulation, Verification and Validation/Flight Dynamics/SVV_FD_B23/Python M')
 from graph1 import *
 from matdata import *
 

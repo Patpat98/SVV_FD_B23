@@ -9,6 +9,7 @@ Created on Fri Mar 15 16:30:38 2019
 import os
 import pickle
 import matplotlib.pyplot as plt 
+import math
 from REF_eigenmotions import times, order, index
 
 
@@ -64,6 +65,27 @@ def load_obj(name ):
     with open('obj/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
     
+for i in range(len(dictionary['vane_AOA'])):    
+    dictionary['vane_AOA'][i] = dictionary['vane_AOA'][i] * math.pi/180
+    dictionary['elevator_dte'][i] = dictionary['elevator_dte'][i] * math.pi/180
+    dictionary['lh_engine_FU'][i] = dictionary['lh_engine_FU'][i] * 0.453592
+    dictionary['rh_engine_FU'][i] = dictionary['rh_engine_FU'][i] * 0.453592
+    dictionary['delta_a'][i] = dictionary['delta_a'][i] * math.pi/180
+    dictionary['delta_e'][i] = dictionary['delta_e'][i] * math.pi/180
+    dictionary['delta_r'][i] = dictionary['delta_r'][i] * math.pi/180
+    dictionary['Ahrs1_Roll'][i] = dictionary['Ahrs1_Roll'][i] * math.pi/180
+    dictionary['Ahrs1_Pitch'][i] = dictionary['Ahrs1_Pitch'][i] * math.pi/180
+    dictionary['Ahrs1_bRollRate'][i] = dictionary['Ahrs1_bRollRate'][i] * math.pi/180
+    dictionary['Ahrs1_bPitchRate'][i] = dictionary['Ahrs1_bPitchRate'][i] * math.pi/180
+    dictionary['Ahrs1_bYawRate'][i] = dictionary['Ahrs1_bYawRate'][i] * math.pi/180
+    dictionary['Dadc1_sat'][i] = dictionary['Dadc1_sat'][i] + 273.15
+    dictionary['Dadc1_tat'][i] = dictionary['Dadc1_tat'][i] + 273.15
+    dictionary['Dadc1_alt'][i] = dictionary['Dadc1_alt'][i] * 0.3048
+    dictionary['Dadc1_bcAlt'][i] = dictionary['Dadc1_bcAlt'][i] * 0.3048
+    dictionary['Dadc1_cas'][i] = dictionary['Dadc1_cas'][i] * 0.514444
+    dictionary['Dadc1_tas'][i] = dictionary['Dadc1_tas'][i] * 0.514444
+    dictionary['Dadc1_altRate'][i] = dictionary['Dadc1_altRate'][i] * 0.3048
+    
 # Find the mass at each point__________________________________________________
     
 payload_mass = 695
@@ -76,12 +98,8 @@ rh_engine_FU = dictionary["rh_engine_FU"]
 mass= []
 
 for i in range(len(lh_engine_FU)):
-    mass0 = mass_original - (lh_engine_FU[i]*0.453592) - (rh_engine_FU[i]*0.453592)
+    mass0 = mass_original - (lh_engine_FU[i]) - (rh_engine_FU[i])
     mass.append(mass0)
-    
-
-    
-
 
 #------------------------------------------------------------------------------
 # -------------Find values for a table, work with Emilie-----------------------
@@ -98,9 +116,7 @@ for k in range(len(order)):
     
     required_dictionary[order[k]] = array
     
-for r in range(len(required_dictionary)):
-    required_dictionary[order[r]][0] = required_dictionary[order[r]][0] * 0.3048
-    required_dictionary[order[r]][1] = required_dictionary[order[r]][1] * 0.514444
+
 #print (required_dictionary) 
 
 fuel_used = []
